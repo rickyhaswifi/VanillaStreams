@@ -1,0 +1,28 @@
+body{
+  background-color: #121212;
+  color: white;
+  padding: 2em;
+}
+
+.card{
+  margin: 2em;
+  padding: 20px;
+  color: #E1E1E1;
+  background-color: #1d1d1d;
+  border-radius: 10px;
+}
+
+.add{
+  color: #000000;
+  background-color: #04DAC5;
+}
+
+.remove{
+  color: #E1E1E1;
+  background-color: rgb(129, 21, 41);
+}
+
+.boton{
+  padding: 1em;
+  border-radius: 10px;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Song CRUD</title>
+  <link rel="stylesheet" href='./styles/styles.css'/>
+</head>
+<body>
+  <section class="card">
+    <form id='AlbumForm'>
+      <input id='AlbumName' placeholder="Album Name"/>
+      <input id='ArtistName' placeholder="Artist Name"/>
+      <input id='ReleaseDate' placeholder="Release Date"/>
+      <input id='AlbumUPC' placeholder="Album UPC"/>
+      <input id='LabelName' placeholder="Label Name"/>
+      <button type="button" id="AlbumSubmit" class="add boton" onclick="AddAlbum()">Add Album</button>
+    </form>
+
+    <h1 id='AlbumDetails'>
+      
+    </h1>
+    <h2 id=''><span id='ReleaseDateDisplay'></span></h2>
+    <h2 id='LabelDisplay'></h2>
+    <h2 id='UPCDisplay'></h2>
+    <h2 id='CustomIDDisplay'></h2>
+    <button onclick="ResetAlbum()">Reset Album</button>
+  </section>
+
+  <h1>Album Songs</h1>
+  <section class="card">
+  <ol id="SongList">
+      <li id='SongListItem'>
+      </li>
+    </ol>
+
+  <form id="SongForm">
+    <input id='SongName' placeholder="Song Name"/>
+    <input id='SongISRC' placeholder="Song ISRC"/>
+    <input id='SongWriter' placeholder="Song Writer"/>
+    <button type="button" id="SongSubmit" class="add boton" onclick="AddSong()">Add Song</button>
+  </form>
+<!-- <button onclick="RandomSongs()" class="add boton">Random Order</button>  -->
+
+  </section>
+  <script src='./js/main.js'></script>
+</body>
+</html>
