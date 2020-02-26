@@ -5,44 +5,113 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Song CRUD</title>
   <link rel="stylesheet" href='./styles/styles.css'/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
 </head>
 <body>
+<!-- <button onclick="RandomSongs()" class="add boton">Random Order</button>  -->
+<section class="ui container">
+
   <section class="card">
-    <form id='AlbumForm'>
+    <form class="ui form">
+      <label>Do you need product codes?</label>
+      <select id='CodeSelect' onchange="NeedCode()">
+        <option>Please select</option>
+        <option value="true">Generate ISRC/UPC for me</option>
+        <option value="false">I Have My Own ISRC/UPC</option>
+      </select>
+    </form>
+  </section>
+
+  <section class="card">
+    <form class="ui form">
+    <label>Album Cover</label>
+    <input id='AlbumCoverUpload' type="file" placeholder="Album Name"/>
+    </form>
+  </section>
+
+  <section class="card">
+    <form id='AlbumForm' class="ui form">
+      <label>Album Name</label>
       <input id='AlbumName' placeholder="Album Name"/>
+      <label>Album Artist</label>
       <input id='ArtistName' placeholder="Artist Name"/>
-      <input id='ReleaseDate' placeholder="Release Date"/>
-      <input id='AlbumUPC' placeholder="Album UPC"/>
+      <label>Release Date</label>
+      <input id='ReleaseDate' type="date" placeholder="Release Date"/>
+     
+      <section id='UPCWrap'>
+        <label>Album UPC</label>
+        <input id='AlbumUPC' placeholder="Album UPC"/>
+      </section>
+
+    <label>Label Name</label>
       <input id='LabelName' placeholder="Label Name"/>
       <button type="button" id="AlbumSubmit" class="add boton" onclick="AddAlbum()">Add Album</button>
+      <button class='boton' onclick="ResetAlbum()">Reset Album</button>
     </form>
 
+  </section>
+
+  <section class="card">
+
+    <section class="ui image">
+      <img src="" id="preview">
+    </section>
+
     <h1 id='AlbumDetails'>
-      
     </h1>
     <h2 id=''><span id='ReleaseDateDisplay'></span></h2>
     <h2 id='LabelDisplay'></h2>
-    <h2 id='UPCDisplay'></h2>
+    <p id='UPCLabel'></p>
+    <p id='UPCDisplay'></p>
     <h2 id='CustomIDDisplay'></h2>
-    <button onclick="ResetAlbum()">Reset Album</button>
-  </section>
+  </section> 
 
-  <h1>Album Songs</h1>
-  <section class="card">
+<section class="card">
   <ol id="SongList">
       <li id='SongListItem'>
       </li>
     </ol>
 
-  <form id="SongForm">
+  <form id="SongForm" class="ui form">
     <input id='SongName' placeholder="Song Name"/>
     <input id='SongISRC' placeholder="Song ISRC"/>
     <input id='SongWriter' placeholder="Song Writer"/>
     <button type="button" id="SongSubmit" class="add boton" onclick="AddSong()">Add Song</button>
   </form>
-<!-- <button onclick="RandomSongs()" class="add boton">Random Order</button>  -->
-
+  <button class="boton" onclick="ExampleSongs()">Example Songs</button>
   </section>
-  <script src='./js/main.js'></script>
+
+  <button class="ui button yellow create_btn" type="button" id="previewModal">Preview</button>
+	  <div class="ui modal previewModal">
+  <i class="close icon"></i>
+  <div class="header">
+    Digital Store Preview
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="" id='previewModalCover'>
+    </div>
+    <div class="description">
+      <div class="ui header" id="PreviewAlbumName"></div>
+      <ol id="SongListModal">
+      </ol>
+      <p id='PreviewLabelDisplay'></p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Make Changes
+    </div>
+    <div class="ui positive right labeled icon button">
+      Looks good!
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+<script src='./js/main.js'></script>
 </body>
 </html>
