@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
 </head>
 <body>
-<!-- <button onclick="RandomSongs()" class="add boton">Random Order</button>  -->
+<!--  -->
 <section class="ui container">
 
   <section class="card">
     <form class="ui form">
       <label>Do you need product codes?</label>
-      <select id='CodeSelect' onchange="NeedCode()">
+      <select id='CodeSelect' class="ui fluid dropdown" onchange="NeedCode()">
         <option>Please select</option>
         <option value="true">Generate ISRC/UPC for me</option>
         <option value="false">I Have My Own ISRC/UPC</option>
@@ -36,17 +36,33 @@
       <label>Album Artist</label>
       <input id='ArtistName' placeholder="Artist Name"/>
       <label>Release Date</label>
-      <input id='ReleaseDate' type="date" placeholder="Release Date"/>
+      <input id='ReleaseDate' type="date" placeholder="Release Date" class="ui"/>
      
       <section id='UPCWrap'>
         <label>Album UPC</label>
-        <input id='AlbumUPC' placeholder="Album UPC"/>
+        <input id='AlbumUPC' placeholder="Album UPC" onchange="ValidateUPC()"/>
+        <div id='UPCResponse'>
+          <p id="UPCvalid" class=""></p>
+        </div>
       </section>
 
     <label>Label Name</label>
       <input id='LabelName' placeholder="Label Name"/>
-      <button type="button" id="AlbumSubmit" class="add boton" onclick="AddAlbum()">Add Album</button>
-      <button class='boton' onclick="ResetAlbum()">Reset Album</button>
+
+      <div class="ui inverted green animated button" tabindex="0" onclick="AddAlbum()" id='AddAlbumValidate'>
+        <div class="visible content">Add Album</div>
+        <div class="hidden content">
+          <i class="plus icon"></i>
+        </div>
+      </div>
+
+      <div class="ui inverted red animated button" tabindex="0" onclick="ResetAlbum()">
+        <div class="visible content">Reset Album</div>
+        <div class="hidden content">
+          <i class="right undo icon"></i>
+        </div>
+      </div>
+
     </form>
 
   </section>
@@ -58,12 +74,15 @@
     </section>
 
     <h1 id='AlbumDetails'>
+      Add Album Details
     </h1>
-    <h2 id=''><span id='ReleaseDateDisplay'></span></h2>
-    <h2 id='LabelDisplay'></h2>
-    <p id='UPCLabel'></p>
-    <p id='UPCDisplay'></p>
-    <h2 id='CustomIDDisplay'></h2>
+    <p id=''><span id='ReleaseDateDisplay'></span></p>
+    <p id='LabelDisplay'></p>
+    <p>
+      <span id='UPCLabel'></span>
+      <span id='UPCDisplay'></span>
+    </p>
+    <p id='CustomIDDisplay'></p>
   </section> 
 
 <section class="card">
@@ -71,14 +90,28 @@
       <li id='SongListItem'>
       </li>
     </ol>
-
+  </section>
+  <section class="card">
   <form id="SongForm" class="ui form">
-    <input id='SongName' placeholder="Song Name"/>
-    <input id='SongISRC' placeholder="Song ISRC"/>
+    <input id='SongName' placeholder="Song Name" required/>
+    <section id="ISRCWrap">
+      <input id='SongISRC' placeholder="Song ISRC" onchange="ValidateISRC()"/>
+      <div id='ISRCResponse'>
+        <p id="ISRCvalid" class=""></p>
+      </div> 
+    </section>
     <input id='SongWriter' placeholder="Song Writer"/>
-    <button type="button" id="SongSubmit" class="add boton" onclick="AddSong()">Add Song</button>
+    <div class="ui inverted green animated button" tabindex="0" id="SongSubmit" onclick="AddSong()">
+      <div class="visible content">Add Song</div>
+      <div class="hidden content">
+        <i class="plus icon"></i>
+      </div>
+    </div>
   </form>
-  <button class="boton" onclick="ExampleSongs()">Example Songs</button>
+
+  
+    <button class="small ui button inverted blue" onclick="ExampleSongs()">Example Songs</button>
+  <button class="small ui button inverted olive" onclick="RandomSongs()" >Random Order</button>
   </section>
 
   <button class="ui button yellow create_btn" type="button" id="previewModal">Preview</button>

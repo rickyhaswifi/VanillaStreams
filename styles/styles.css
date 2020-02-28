@@ -9,6 +9,15 @@ input{
   margin-bottom: .3em !important;
 }
 
+h3{
+  margin-top: -10px !important;
+}
+
+#SongListModal{
+  margin-left: -40px !important;
+  text-align: left !important;
+}
+
 .card{
   width: 50%;
   min-width: 400px;
@@ -34,14 +43,18 @@ input{
   border-radius: 10px;
 }
 
-/* .visible{
-  display:  !important;
-} */
-
-.hidden{
+.esconde{
   display: none;
 }
 
 .ui.modal{
   color: #1d1d1d;
 }
+
+.ui.segment{
+margin-bottom: 10px !important;
+}
+/* 
+#PlayHover:hover{
+  content:'▶';
+} */
