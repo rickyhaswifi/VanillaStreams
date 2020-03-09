@@ -1,3 +1,5 @@
+const SelectCodeOption = document.getElementById('CodeSelect')
+SelectCodeOption.addEventListener('change', 
 NeedCode = () => {
  const Question =  document.getElementById('CodeSelect');
  const CodeResponse = document.getElementById('UPCWrap');
@@ -7,13 +9,15 @@ NeedCode = () => {
  (CodeResponse.classList.remove("esconde"), SongISRC.classList.remove("esconde")) 
  : 
  (CodeResponse.classList = ("esconde"), SongISRC.classList = ("esconde"))
-}
+})
 
 GenerateUPC = () => {
   const UPCdigits = Math.floor(Math.random()*90000) + 1000;
   return `978898${UPCdigits}`
 }
 
+const albumButton = document.getElementById('AddAlbumValidate')
+albumButton.addEventListener('click',
 AddAlbum = () => {
   const AlbumName = document.getElementById('AlbumName');
   const AlbumDetails = document.getElementById('AlbumDetails');
@@ -42,7 +46,7 @@ AddAlbum = () => {
   PreviewLabelDisplay.innerHTML = `© ${Year} ${LabelName.value}`;
   CustomID();
   ClearAlbumInputs();
-}
+})
 
 proccessCover = () => {
   var AlbumCoverUpload = document.getElementById("AlbumCoverUpload"),
@@ -90,6 +94,9 @@ ClearAlbumInputs = () => {
   // document.getElementById("preview").style.display='none';
   // document.getElementById("previewModalCover").style.display='none';
 }
+
+const resetAlbumButton = document.getElementById('ResetAlbum')
+resetAlbumButton.addEventListener('click', 
 ResetAlbum = () => {
   document.getElementById('AlbumName').value = '';
   document.getElementById('AlbumDetails').innerHTML = '';
@@ -104,7 +111,7 @@ ResetAlbum = () => {
   document.getElementById("UPCResponse").classList = ""
   document.getElementById("UPCResponse").innerHTML = ""
   document.getElementById('AddAlbumValidate').classList.remove('disabled');;
-}
+})
 
 GenerateISRC = () => {
   const digits = Math.floor(Math.random()*90000) + 1000000;
@@ -120,26 +127,31 @@ getUniqId = () => {
     .substring(1);
  }
 
-ExampleSongs = () => {
-  Songs.push(
-  {Name:'Bohemian Rhapsody',
-  ISRC: GenerateISRC(),
-  Writer:'Freddy Mercury', 
-  id:getUniqId(),
-  },
-  {Name:'Under Pressure',
-  ISRC:GenerateISRC(),
-  Writer:'Freddy Mercury', 
-  id:getUniqId(),
-  },
-  {Name:`Don't Stop Me Now`,
-  ISRC:GenerateISRC(),
-  Writer:'Freddy Mercury', 
-  id:getUniqId(),
-  })
-  GetSongs();
-}
+const ExampleSongsButton = document.getElementById('ExampleSongs')
+ExampleSongsButton.addEventListener('click', 
+ ExampleSongs = () => {
+   Songs.push(
+   {Name:'Bohemian Rhapsody',
+   ISRC: GenerateISRC(),
+   Writer:'Freddy Mercury', 
+   id:getUniqId(),
+   },
+   {Name:'Under Pressure',
+   ISRC:GenerateISRC(),
+   Writer:'Freddy Mercury', 
+   id:getUniqId(),
+   },
+   {Name:`Don't Stop Me Now`,
+   ISRC:GenerateISRC(),
+   Writer:'Freddy Mercury', 
+   id:getUniqId(),
+   })
+   GetSongs();
+ }
+)
 
+const SongSubmitButton = document.getElementById('SongSubmit')
+SongSubmitButton.addEventListener('click', 
 AddSong = () => {
  const SongName = document.getElementById('SongName');
  const SongISRC = document.getElementById('SongISRC');
@@ -155,14 +167,14 @@ AddSong = () => {
   console.log(Songs)
   GetSongs();
   ClearFields();
-}
+})
 
 GetSongs = () => {
   const SongList = document.getElementById("SongList");
   const SongListModal = document.getElementById("SongListModal");
   var i = 1;
 
-  SongList.innerHTML = Songs < 1 ?  'Add Some Songs Below' : '<ol>' + Songs.map(function (Songs) {
+  SongList.innerHTML = Songs < 1 ?  'Add songs on form below' : '<ol>' + Songs.map(function (Songs) {
     return `<li> 
     <h1> ${Songs.Name} </h1> 
     <h2> ISRC:  ${Songs.ISRC} </h2> 
@@ -200,10 +212,13 @@ GenerateTimeStamp = () => {
   return `${FirstDigit}:${Segundo}`
 }
 
+const RandomSongsButton = document.getElementById('RandomSongs')
+RandomSongsButton.addEventListener('click', 
 RandomSongs = () => {
   Songs.sort(() => Math.random() - 0.5);
    GetSongs();
 }
+)
 
 // EditSong = (id) => {
 //   const SongName = document.getElementById('SongName');
@@ -225,17 +240,19 @@ RandomSongs = () => {
 //   GetSongs();
 // }
 
-// EditSong = (id) => {
-//   const updatedSong = {
-//   Name: document.getElementById('SongName').value = '',
-//   ISRC: document.getElementById('SongISRC').value = '',
-//   Writer: document.getElementById('SongWriter').value = '',
-//   }
-//   const id = updatedSong.id
-//   const index = Songs.findIndex(song => song.id === id)
-//   Songs.splice(index, 1, updatedSong)
-//   console.log(Songs)
-//  }
+EditSong = (song, id) => {
+  const editTrack = Songs.map((song) => {
+    if (song.id === id) {
+      document.getElementById('SongName').value = song.Name;
+      document.getElementById('SongISRC').value = song.ISRC;
+      document.getElementById('SongWriter').value = song.Writer;
+    } else {
+      return song
+      console.log(song)
+    }
+  })
+  console.log(editTrack)
+}
 
 DeleteSong = (id) => {
   Songs.splice(id, 1);
@@ -258,6 +275,8 @@ $('#previewModal').click(function() {
 
 // VALIDATIONS
 
+const validateUPCInput = document.getElementById('AlbumUPC')
+validateUPCInput.addEventListener('focus', 
 ValidateUPC = () => {
   const AddAlbumValidate = document.getElementById('AddAlbumValidate');
   const UPC = document.getElementById("AlbumUPC").value;
@@ -293,8 +312,11 @@ ValidateUPC = () => {
     document.getElementById("UPCResponse").classList = "ui inverted segment red"
     AddAlbumValidate.classList.add('disabled');
   }
-}
+})
 
+
+const ValidateISRCInput = document.getElementById('SongISRC')
+ValidateISRCInput.addEventListener('focus', 
 ValidateISRC = () => {
   const SongSubmit = document.getElementById('SongSubmit');
   const ISRC = document.getElementById("SongISRC").value;
@@ -328,4 +350,4 @@ ValidateISRC = () => {
     document.getElementById("ISRCResponse").classList = "ui inverted segment red"
     SongSubmit.classList.add('disabled');
   }
-}
+})

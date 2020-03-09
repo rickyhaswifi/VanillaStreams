@@ -1,8 +1,8 @@
 body{
   background-color: #121212 !important;
   color: white !important;
-  padding: 2em;
   margin: auto !important;
+  position: relative;
 }
 
 input{
@@ -38,6 +38,10 @@ h3{
   background-color: rgb(129, 21, 41);
 }
 
+.ui.button{
+  margin-top:10px !important;
+}
+
 .boton{
   padding: 1em;
   border-radius: 10px;
@@ -58,3 +62,16 @@ margin-bottom: 10px !important;
 #PlayHover:hover{
   content:'▶';
 } */
+
+.StickyFooter{
+  width: 100%;
+  background-color:rgba(46, 38, 36, 0.5);
+  min-height: 3rem;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+}
+.StickyFooterContent{
+margin: auto;
+text-align: center;
+}
