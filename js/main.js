@@ -44,6 +44,12 @@ AddAlbum = () => {
   <h3 class="ui orange header">${ArtistName.value}</h3>
   `;
   PreviewLabelDisplay.innerHTML = `© ${Year} ${LabelName.value}`;
+  // Promote Modal
+  const promoteAlbumText = document.getElementById('promoteAlbumText')
+  promoteAlbumText.innerHTML=`
+  <h1 class="ui header">${AlbumName.value}</h1>
+  <h3 class="ui header">${ArtistName.value}</h3>
+  `
   CustomID();
   ClearAlbumInputs();
 })
@@ -52,6 +58,7 @@ proccessCover = () => {
   var AlbumCoverUpload = document.getElementById("AlbumCoverUpload"),
     preview = document.getElementById("preview");
     previewModalCover = document.getElementById("previewModalCover");
+    promoteImageCover = document.getElementById("promoteImageCover");
     
     AlbumCoverUpload.addEventListener("change", function() {
   changeImage(this);
@@ -66,6 +73,7 @@ proccessCover = () => {
     reader.onload = function(e) {
       preview.setAttribute('src', e.target.result);
       previewModalCover.setAttribute('src', e.target.result);
+      promoteImageCover.setAttribute('src', e.target.result);
     }
   
     reader.readAsDataURL(input.files[0]);
@@ -108,9 +116,10 @@ ResetAlbum = () => {
   document.getElementById('UPCDisplay').innerHTML = ``;
   document.getElementById('LabelDisplay').innerHTML = ``;
   document.getElementById('CustomIDDisplay').innerHTML = ``;
-  document.getElementById("UPCResponse").classList = ""
-  document.getElementById("UPCResponse").innerHTML = ""
-  document.getElementById('AddAlbumValidate').classList.remove('disabled');;
+  document.getElementById("UPCResponse").classList = "";
+  document.getElementById("UPCResponse").innerHTML = "";
+  document.getElementById('AddAlbumValidate').classList.remove('disabled');
+  document.getElementById('PreviewAlbumName');
 })
 
 GenerateISRC = () => {
@@ -153,25 +162,50 @@ ExampleSongsButton.addEventListener('click',
 const SongSubmitButton = document.getElementById('SongSubmit')
 SongSubmitButton.addEventListener('click', 
 AddSong = () => {
+
+ const SongWrap = document.getElementById('SongForm');
+
  const SongName = document.getElementById('SongName');
  const SongISRC = document.getElementById('SongISRC');
  const SongWriter = document.getElementById('SongWriter');
+
+//  FORM FOR EACH SONG
+// var SongFormCard = document.createElement("section");
+// SongFormCard.innerHTML = `
+// <section class="SongCard">
+//   <input id='SongName' placeholder="Song Name"/>
+//   <section id="ISRCWrap">
+//     <input id='SongISRC' placeholder="Song ISRC"/>
+//     <div id='ISRCResponse'>
+//       <p id="ISRCvalid" class=""></p>
+//     </div> 
+//   </section>
+//   <input id='SongWriter' placeholder="Song Writer"/>
+// </section>
+// `
+//  x.setAttribute("id", "SongISRC");
+//  x.setAttribute("placeholder", "Song Name");
+//  x.classList = ('ui form')
+// SongWrap.appendChild(SongFormCard);
+
  const newSong = ({
    Name: SongName.value, 
    ISRC: SongISRC.value < 1 ? GenerateISRC() : SongISRC.value, 
    Writer: SongWriter.value.length < 1 ? 'No Writter Added' : SongWriter.value,
    id:getUniqId(),
   });
-
   Songs.push(newSong);
-  console.log(Songs)
   GetSongs();
   ClearFields();
 })
 
+// const SongForm = document.getElementById('SongForm')
+// SongForm.addEventListener('submit', AddSong())
+
 GetSongs = () => {
   const SongList = document.getElementById("SongList");
   const SongListModal = document.getElementById("SongListModal");
+  const LabelCopyTableContainer = document.getElementById('LabelCopyTableContainer');
   var i = 1;
 
   SongList.innerHTML = Songs < 1 ?  'Add songs on form below' : '<ol>' + Songs.map(function (Songs) {
@@ -179,8 +213,8 @@ GetSongs = () => {
     <h1> ${Songs.Name} </h1> 
     <h2> ISRC:  ${Songs.ISRC} </h2> 
     <h3> Writer:  ${Songs.Writer} </h2> 
-    <button onclick="EditSong()" class="ui button inverted yellow">Edit Song</button>
-    <button onclick="DeleteSong()" class="ui button inverted red">Delete Song</button>
+    <!-- <button onclick="EditSong()" class="ui button inverted yellow">Edit Song</button> -->
+    <button onclick="DeleteSong()" class="ui button inverted red"><i class="trash alternate icon"></i></button>
     </li>`;
   }).join('') + '</ol>';
 
@@ -194,12 +228,36 @@ SongListModal.innerHTML = `<table class='ui table'>
 </tr>
 ` + Songs.map(function (Songs) {
     return `
-    <tr id='PlayHover'> 
-    <td> ${i++}.</td>
+    <tr> 
+    <td> <span id='PlayHover'>${i++}.</span></td>
     <td> ${Songs.Name} </td>
     <td> ${GenerateTimeStamp()}</td> 
     <td> <i class="disabled play circle icon"> </td> 
     <td> <button style='float:right' onclick="" class="ui button orange">$1.29</button> </td> 
+    </tr>
+    `;
+  }).join('') + '</table>';
+
+  // LABEL COPY LOGIC
+let n = 1;
+LabelCopyTableContainer.innerHTML = `<table class='ui table'>
+<tr>
+<th>#</th>
+<th>Label</th>
+<th>UPC</th>
+<th>Title</th>
+<th>ISRC</th>
+<th>Youtube ID</th>
+</tr>
+` + Songs.map(function (Songs) {
+    return `
+    <tr> 
+    <td> ${n++}.</td>
+    <td> ${LabelName.innerHTML} </td>
+    <td> ${UPCDisplay.innerHTML} </td>
+    <td> ${Songs.Name} </td>
+    <td> ${Songs.ISRC}</td> 
+    <td> ${CustomIDDisplay.innerHTML.substring(10)}_${Songs.ISRC}</td> 
     </tr>
     `;
   }).join('') + '</table>';
@@ -241,17 +299,18 @@ RandomSongs = () => {
 // }
 
 EditSong = (song, id) => {
-  const editTrack = Songs.map((song) => {
-    if (song.id === id) {
-      document.getElementById('SongName').value = song.Name;
-      document.getElementById('SongISRC').value = song.ISRC;
-      document.getElementById('SongWriter').value = song.Writer;
+  debugger
+  Songs.map((id) => {
+    if (Songs.id === id) {
+      document.getElementById('SongName').value = song[id].Name;
+      document.getElementById('SongISRC').value = song[id].ISRC;
+      document.getElementById('SongWriter').value = song[id].Writer;
     } else {
       return song
       console.log(song)
     }
   })
-  console.log(editTrack)
+  console.log('editTrack')
 }
 
 DeleteSong = (id) => {
@@ -269,8 +328,17 @@ document.getElementById("ISRCResponse").classList = ""
 
 GetSongs();
 
+
 $('#previewModal').click(function() {
-  $('.ui.modal').modal('show');
+  $('.uiPreview.PreviewModal').modal('show');
+})
+
+$('#LabelCopyModal').click(function() {
+  $('.uiLabel.modalLabel').modal('show');
+})
+
+$('#PromoteModal').click(function() {
+  $('.uiPromote.modalPromote').modal('show');
 })
 
 // VALIDATIONS
@@ -315,6 +383,42 @@ ValidateUPC = () => {
 })
 
 
+// const ValidateISRCInput = document.getElementsByClassName('SongISRCcls')
+// ValidateISRCInput.addEventListener('focus', 
+// ValidateISRC = () => {
+//   const SongSubmit = document.getElementById('SongSubmit');
+//   const ISRC = document.getElementById("SongISRC").value;
+//   const ISRCOutput = document.getElementById("ISRCvalid");
+//   const Valid = ISRC.length;
+//   const regISRC = /[a-zA-Z]{5}\d{7}/;
+//   const resInvalidISRC = /abc|ABC|123|0123|1234/;
+
+//   if (resInvalidISRC.test(ISRC) === true) {
+//     ISRCOutput.innerHTML = `ISRC may be made up`;
+//     document.getElementById("ISRCResponse").classList = "ui inverted segment yellow"
+//     SongSubmit.classList.add('disabled');
+//   } 
+//   else if (regISRC.test(ISRC) === true && Valid === 12 ) {
+//     ISRCOutput.innerHTML = `ISRC is valid`;
+//     document.getElementById("ISRCResponse").classList = "ui inverted segment green"
+//     SongSubmit.classList.remove('disabled');
+//   } 
+//   else if (Valid < 12 ) {
+//     ISRCOutput.innerHTML = `ISRC is invalid: Valid ISRC only 12 charecters, ${Valid} above`;
+//     document.getElementById("ISRCResponse").classList = "ui inverted segment red"
+//     SongSubmit.classList.add('disabled');
+//   } 
+//   else if (Valid > 12 ) {
+//     ISRCOutput.innerHTML = `ISRC is invalid: Valid ISRC only 12 charecters, ${Valid} above`;
+//     document.getElementById("ISRCResponse").classList = "ui inverted segment red"
+//     SongSubmit.classList.add('disabled');
+//   } 
+//   else {
+//     ISRCOutput.innerHTML = `ISRC is invalid`;
+//     document.getElementById("ISRCResponse").classList = "ui inverted segment red"
+//     SongSubmit.classList.add('disabled');
+//   }
+// })
 const ValidateISRCInput = document.getElementById('SongISRC')
 ValidateISRCInput.addEventListener('focus', 
 ValidateISRC = () => {

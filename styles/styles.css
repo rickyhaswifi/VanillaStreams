@@ -1,5 +1,14 @@
+:root{
+  --DarkTone:#121212;
+  --GrayTone:#1d1d1d;
+  --WhiteTone: #E1E1E1;
+  --BrightTones:linear-gradient(45deg, #A300FF, #00FFD7);
+  --RoundIt:10px;
+  --Spacer:2em;
+}
+
 body{
-  background-color: #121212 !important;
+  background-color:var(--DarkTone) !important;
   color: white !important;
   margin: auto !important;
   position: relative;
@@ -10,7 +19,7 @@ input{
 }
 
 h3{
-  margin-top: -10px !important;
+  margin-top: var(--Spacer) !important;
 }
 
 #SongListModal{
@@ -21,30 +30,22 @@ h3{
 .card{
   width: 50%;
   min-width: 400px;
-  margin: 2em;
+  margin: var(--Spacer);
   padding: 20px;
-  color: #E1E1E1;
-  background-color: #1d1d1d;
-  border-radius: 10px;
+  color: var(--WhiteTone);
+  background-color: var(--GrayTone);
+  border-radius: var(--RoundIt);
 }
 
-.add{
-  color: #000000;
-  background-color: #04DAC5;
-}
-
-.remove{
-  color: #E1E1E1;
-  background-color: rgb(129, 21, 41);
+.SongCard{
+  width: 90%;
+  padding: 10px;
+  background-color:var(--WhiteTone);
+  border-radius: var(--RoundIt);
 }
 
 .ui.button{
   margin-top:10px !important;
-}
-
-.boton{
-  padding: 1em;
-  border-radius: 10px;
 }
 
 .esconde{
@@ -66,7 +67,8 @@ margin-bottom: 10px !important;
 .StickyFooter{
   width: 100%;
   background-color:rgba(46, 38, 36, 0.5);
-  min-height: 3rem;
+  margin-top: var(--Spacer);
+  min-height: var(--Spacer);
   padding: 10px;
   position: fixed;
   bottom: 0;
@@ -75,3 +77,34 @@ margin-bottom: 10px !important;
 margin: auto;
 text-align: center;
 }
+
+#promoteSection{
+  width: 100%;
+  height: 500px;
+  color: white;
+  margin: auto;
+  background: var(--BrightTones);
+}
+
+/* .modeAll{
+  display: block;
+  position: fixed;
+  font-size: 1rem;
+  width: 88%;
+  margin: 0 0 0 -44%;
+  margin-top: -113.219px;
+  z-index: 1001;
+  top: 50%;
+  left: 50%;
+  text-align: left;
+  background: #fff;
+  border: none;
+  box-shadow: 1px 3px 3px 0 rgba(0,0,0,.2), 1px 3px 15px 2px rgba(0,0,0,.2);
+  -webkit-transform-origin: 50% 25%;
+  transform-origin: 50% 25%;
+  border-radius: .28571429rem;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+} */

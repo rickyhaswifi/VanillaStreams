@@ -10,7 +10,9 @@
 <body>
 
 <section class="ui container fluid">
-
+  <section class="ui top attached menu inverted">
+    <h1 class="ui header green">Vanilla Music</h1>
+  </section>
   <section class="card">
     <form class="ui form">
       <label>Do you need product codes?</label>
@@ -84,40 +86,82 @@
     <p id='CustomIDDisplay'></p>
   </section> 
 
+  <section class="card">
+    <h2>Tools</h2>
+    <button class="small ui button inverted blue" id='ExampleSongs'>Example Songs</button>
+    <button class="small ui button inverted olive" id='RandomSongs'><i class="random icon"></i> Random Order</button>
+  </section>
+
 <section class="card">
   <ol id="SongList">
       <li id='SongListItem'>
       </li>
     </ol>
-    <button class="small ui button inverted blue" id='ExampleSongs'>Example Songs</button>
-  <button class="small ui button inverted olive" id='RandomSongs'>Random Order</button>
-  </section>
-  <section class="card">
-  <form id="SongForm" class="ui form">
-    <input id='SongName' placeholder="Song Name" required/>
-    <section id="ISRCWrap">
-      <input id='SongISRC' placeholder="Song ISRC"/>
-      <div id='ISRCResponse'>
-        <p id="ISRCvalid" class=""></p>
-      </div> 
-    </section>
-    <input id='SongWriter' placeholder="Song Writer"/>
-    <div class="ui inverted green animated button" tabindex="0" id="SongSubmit">
-      <div class="visible content">Add Song</div>
+
+    <section class="SongCard">
+      <form id="SongForm" class="ui form">
+        <section class="SongWrap">
+          <input id='SongName' placeholder="Song Name"/>
+          <section id="ISRCWrap">
+            <input id='SongISRC' placeholder="Song ISRC"/>
+            <div id='ISRCResponse'>
+              <p id="ISRCvalid" class=""></p>
+            </div> 
+          </section>
+          <input id='SongWriter' placeholder="Song Writer"/>
+        </div>
+      </section>
+
+    </form>
+    <div class="ui inverted green animated button" type= tabindex="0" id="SongSubmit">
+    <div class="visible content">Add Song</div>
+    <div class="hidden content">
+    <i class="plus icon"></i>
+    </div>
+      </section>
+
+<!-- SAVE SONGS BUTTON -->
+    <!-- <div class="ui inverted green animated button" type= tabindex="0" id="SongSave">
+      <div class="visible content">Save Songs</div>
       <div class="hidden content">
         <i class="plus icon"></i>
       </div>
-    </div>
-  </form>
+    </div> -->
   </section>
+  
 
   <section class="StickyFooter">
     <section class="StickyFooterContent">
-      <button class="ui button yellow small" type="button" id="previewModal">Store Preview</button>
+      <button class="ui button yellow small" type="button" id="LabelCopyModal">Label Copy</button>
+      <button class="ui button green small" type="button" id="previewModal">Store Preview</button>
+      <button class="ui button blue small" type="button" id="PromoteModal">Promote</button>
     </section>
   </section>
 
-	  <div class="ui modal previewModal">
+  <!-- LABEL COPY MODAL -->
+	<div class="ui uiLabel modalLabel modal LabelCopyModal">
+  <i class="close icon"></i>
+  <div class="header">
+    Label Copy
+  </div>
+  <div class="content">
+    <section id='LabelCopyTableContainer'>
+
+    </section>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Make Changes
+    </div>
+    <div class="ui positive right labeled icon button">
+      Looks good!
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW MODAL -->
+	  <div class="uiPreview ui modal PreviewModal">
   <i class="close icon"></i>
   <div class="header">
     Digital Store Preview
@@ -143,6 +187,28 @@
     </div>
   </div>
 </div>
+
+<!-- PROMOTE MODAL -->
+<div class="ui uiPromote modalPromote modal PromoteModal">
+  <i class="close icon"></i>
+  <section id='promoteSection'>
+    <img id='promoteImageCover' class="ui image"/>
+    <h1 id='promoteAlbumText'></h1>
+    <canvas id='promoteCanvas'>
+    </canvas>
+  </section>
+  <div class="actions">
+    <div class="ui black deny button">
+      Make Changes
+    </div>
+    <div class="ui positive right labeled icon button">
+      Download
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
