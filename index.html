@@ -34,11 +34,11 @@
   <section class="card">
     <form id='AlbumForm' class="ui form">
       <label>Album Name</label>
-      <input id='AlbumName' placeholder="Album Name"/>
+      <input id='AlbumName' placeholder="Album Name" required/>
       <label>Album Artist</label>
-      <input id='ArtistName' placeholder="Artist Name"/>
+      <input id='ArtistName' placeholder="Artist Name" required/>
       <label>Release Date</label>
-      <input id='ReleaseDate' type="date" placeholder="Release Date" class="ui"/>
+      <input id='ReleaseDate' type="date" placeholder="Release Date" class="ui" required/>
      
       <section id='UPCWrap'>
         <label>Album UPC</label>
@@ -92,7 +92,7 @@
     <button class="small ui button inverted olive" id='RandomSongs'><i class="random icon"></i> Random Order</button>
   </section>
 
-<section class="card">
+<section class="card last">
   <ol id="SongList">
       <li id='SongListItem'>
       </li>
@@ -192,8 +192,33 @@
 <div class="ui uiPromote modalPromote modal PromoteModal">
   <i class="close icon"></i>
   <section id='promoteSection'>
-    <img id='promoteImageCover' class="ui image"/>
-    <h1 id='promoteAlbumText'></h1>
+
+    <section class="promoteContentWrap">
+      <h1 id='promoteAlbumText'></h1>
+      <div class="ui medium image sombraCaja">
+        <img id='promoteImageCover'/>
+      </div>
+      <div class="stores">
+        <img src="http://entendy.com/images/music-icons/pandora.png" class="icons"></img>
+        
+        <img src="http://entendy.com/images/music-icons/apple.png" class="icons"></img>
+        
+        <img src="http://entendy.com/images/music-icons/googleplay.png" class="icons"></img>
+        
+        <img src="http://entendy.com/images/music-icons/spotify.png" class="icons"></img>
+        
+        <img src="http://entendy.com/images/music-icons/amazon.png" class="icons"></img>
+        
+        <img src="http://lnza.me/assets/icons/light-tidal.png" class="icons"></img>
+        
+        <!-- <img src="http://lnza.me/assets/icons/light-soundcloud.png" class="icons"></img> -->
+        
+        <!-- <img src="http://lnza.me/assets/icons/light-deezer.png" class="icons"></img> -->
+        
+        </div>
+        <h2 class="ui yellow header sombra" id="StreetDate"></h2>
+    </section>
+
     <canvas id='promoteCanvas'>
     </canvas>
   </section>

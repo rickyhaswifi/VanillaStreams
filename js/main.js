@@ -30,6 +30,8 @@ AddAlbum = () => {
   const LabelDisplay = document.getElementById('LabelDisplay');
   const Year = parseInt(ReleaseDate.value);
   const UPCLabel = document.getElementById('UPCLabel');
+  const StreetDate = document.getElementById('StreetDate');
+  StreetDate.innerHTML = `Streaming: ${ReleaseDate.value}`;
   AlbumDetails.innerHTML = AlbumName.length < 1 ? 'Add Album Details' : `${AlbumName.value} - ${ArtistName.value}`;
   LabelDisplay.innerHTML = `© ${Year} ${LabelName.value}`;
   ReleaseDateDisplay.innerHTML = `Release Date: ${ReleaseDate.value}`;
@@ -41,15 +43,18 @@ AddAlbum = () => {
   const PreviewLabelDisplay = document.getElementById('PreviewLabelDisplay');
   PreviewAlbumName.innerHTML = `
   <h1 class="ui header">${AlbumName.value}</h1>
-  <h3 class="ui orange header">${ArtistName.value}</h3>
+  <h3 class="ui orange header mbMinus">${ArtistName.value}</h3>
   `;
   PreviewLabelDisplay.innerHTML = `© ${Year} ${LabelName.value}`;
+
   // Promote Modal
   const promoteAlbumText = document.getElementById('promoteAlbumText')
   promoteAlbumText.innerHTML=`
-  <h1 class="ui header">${AlbumName.value}</h1>
-  <h3 class="ui header">${ArtistName.value}</h3>
+  <h1 class='sombra'>${AlbumName.value}</h1>
+  <h2 class="ui yellow header mbMinus sombra">${ArtistName.value}</h2>
   `
+  // LABEL COPY MODAL
+
   CustomID();
   ClearAlbumInputs();
 })
@@ -253,7 +258,7 @@ LabelCopyTableContainer.innerHTML = `<table class='ui table'>
     return `
     <tr> 
     <td> ${n++}.</td>
-    <td> ${LabelName.innerHTML} </td>
+    <td> ${PreviewLabelDisplay.innerHTML.substring(5)} </td>
     <td> ${UPCDisplay.innerHTML} </td>
     <td> ${Songs.Name} </td>
     <td> ${Songs.ISRC}</td> 
