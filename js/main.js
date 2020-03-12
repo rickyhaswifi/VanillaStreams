@@ -54,6 +54,8 @@ AddAlbum = () => {
   <h2 class="ui yellow header mbMinus sombra">${ArtistName.value}</h2>
   `
   // LABEL COPY MODAL
+  // const cLline = document.getElementById('LabelDisplay').innerHTML;
+  // console.log(cLline)
 
   CustomID();
   ClearAlbumInputs();
@@ -193,8 +195,15 @@ AddSong = () => {
 //  x.classList = ('ui form')
 // SongWrap.appendChild(SongFormCard);
 
+
+  const SongInput = SongName.value;
+  CapCase = SongInput.replace(/\b\b\w/g, c => c.toUpperCase());
+  let LowCase = CapCase.replace(/\B\B\w/g, l => l.toLowerCase());
+  //document.getElementById("userInputCase").value = LowCase;
+
+
  const newSong = ({
-   Name: SongName.value, 
+   Name: LowCase, 
    ISRC: SongISRC.value < 1 ? GenerateISRC() : SongISRC.value, 
    Writer: SongWriter.value.length < 1 ? 'No Writter Added' : SongWriter.value,
    id:getUniqId(),
@@ -218,7 +227,7 @@ GetSongs = () => {
     <h1> ${Songs.Name} </h1> 
     <h2> ISRC:  ${Songs.ISRC} </h2> 
     <h3> Writer:  ${Songs.Writer} </h2> 
-    <!-- <button onclick="EditSong()" class="ui button inverted yellow">Edit Song</button> -->
+    <!-- <button onclick="EditSong(id)" class="ui button inverted yellow">Edit Song</button> -->
     <button onclick="DeleteSong()" class="ui button inverted red"><i class="trash alternate icon"></i></button>
     </li>`;
   }).join('') + '</ol>';
@@ -245,24 +254,33 @@ SongListModal.innerHTML = `<table class='ui table'>
 
   // LABEL COPY LOGIC
 let n = 1;
-LabelCopyTableContainer.innerHTML = `<table class='ui table'>
+const cLline = document.getElementById('LabelDisplay').innerHTML;
+const rDate = document.getElementById('ReleaseDateDisplay').innerHTML;
+console.log(cLline)
+LabelCopyTableContainer.innerHTML = `<table class='ui striped celled table LabelTable'>
 <tr>
 <th>#</th>
 <th>Label</th>
+<th>Date</th>
 <th>UPC</th>
 <th>Title</th>
+<th>Writer</th>
 <th>ISRC</th>
 <th>Youtube ID</th>
+<th>C Line</th>
 </tr>
 ` + Songs.map(function (Songs) {
     return `
     <tr> 
     <td> ${n++}.</td>
-    <td> ${PreviewLabelDisplay.innerHTML.substring(5)} </td>
+    <td> ${PreviewLabelDisplay.innerHTML.substring(6)} </td>
+    <td> ${rDate.substring(14)} </td>
     <td> ${UPCDisplay.innerHTML} </td>
     <td> ${Songs.Name} </td>
+    <td> ${Songs.Writer} </td>
     <td> ${Songs.ISRC}</td> 
     <td> ${CustomIDDisplay.innerHTML.substring(10)}_${Songs.ISRC}</td> 
+    <td> ${cLline}</td> 
     </tr>
     `;
   }).join('') + '</table>';
@@ -303,20 +321,18 @@ RandomSongs = () => {
 //   GetSongs();
 // }
 
-EditSong = (song, id) => {
-  debugger
-  Songs.map((id) => {
-    if (Songs.id === id) {
-      document.getElementById('SongName').value = song[id].Name;
-      document.getElementById('SongISRC').value = song[id].ISRC;
-      document.getElementById('SongWriter').value = song[id].Writer;
-    } else {
-      return song
-      console.log(song)
-    }
-  })
-  console.log('editTrack')
-}
+// EditSong = () => {
+//   Songs.map((id) => {
+//     if (Songs.id === id) {
+//       document.getElementById('SongName').value = song[id].Name;
+//       document.getElementById('SongISRC').value = song[id].ISRC;
+//       document.getElementById('SongWriter').value = song[id].Writer;
+//     } else {
+//      return song
+//       console.log(this.Songs[song])
+//     }
+//   })
+// }
 
 DeleteSong = (id) => {
   Songs.splice(id, 1);
@@ -333,6 +349,7 @@ document.getElementById("ISRCResponse").classList = ""
 
 GetSongs();
 
+// MODALS
 
 $('#previewModal').click(function() {
   $('.uiPreview.PreviewModal').modal('show');
@@ -349,7 +366,7 @@ $('#PromoteModal').click(function() {
 // VALIDATIONS
 
 const validateUPCInput = document.getElementById('AlbumUPC')
-validateUPCInput.addEventListener('focus', 
+validateUPCInput.addEventListener('change', 
 ValidateUPC = () => {
   const AddAlbumValidate = document.getElementById('AddAlbumValidate');
   const UPC = document.getElementById("AlbumUPC").value;
@@ -425,7 +442,7 @@ ValidateUPC = () => {
 //   }
 // })
 const ValidateISRCInput = document.getElementById('SongISRC')
-ValidateISRCInput.addEventListener('focus', 
+ValidateISRCInput.addEventListener('change', 
 ValidateISRC = () => {
   const SongSubmit = document.getElementById('SongSubmit');
   const ISRC = document.getElementById("SongISRC").value;

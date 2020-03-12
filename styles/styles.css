@@ -120,3 +120,7 @@ padding: 5px;
 .last{
   margin-bottom: 6em !important;
 }
+
+table.LabelTable{
+  font-size: 10px !important;
+}
