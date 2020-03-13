@@ -3,21 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Song CRUD</title>
+  <title>Vanilla Music</title>
+  <link rel="shortcut icon" href="./images/favicon.png" />
   <link rel="stylesheet" href='./styles/styles.css'/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
 </head>
 <body>
 
 <section class="ui container fluid">
+
   <section class="ui top attached menu inverted">
-    <h1 class="ui header green">Vanilla Music</h1>
+      <div class="ui header item green">
+        <i class="play icon"></i>Vanilla Music
+      </div>
   </section>
+
   <section class="card">
     <form class="ui form">
       <label>Do you need product codes?</label>
       <select id='CodeSelect' class="ui fluid dropdown">
-        <option>Please select</option>
         <option value="true">Generate ISRC/UPC for me</option>
         <option value="false">I Have My Own ISRC/UPC</option>
       </select>
@@ -25,7 +29,7 @@
   </section>
 
   <section class="card">
-    <form class="ui form">
+    <form class="ui form" id='AlbumForm'>
     <label>Album Cover</label>
     <input id='AlbumCoverUpload' type="file" placeholder="Album Name"/>
     </form>
@@ -40,7 +44,7 @@
       <label>Release Date</label>
       <input id='ReleaseDate' type="date" placeholder="Release Date" class="ui" required/>
      
-      <section id='UPCWrap'>
+      <section id='UPCWrap' class="esconde">
         <label>Album UPC</label>
         <input id='AlbumUPC' placeholder="Album UPC"/>
         <div id='UPCResponse'>
@@ -51,7 +55,7 @@
     <label>Label Name</label>
       <input id='LabelName' placeholder="Label Name"/>
 
-      <div class="ui inverted green animated button" tabindex="0" id='AddAlbumValidate'>
+      <div class="ui inverted green animated button disabled" tabindex="0" id='AddAlbumValidate'>
         <div class="visible content">Add Album</div>
         <div class="hidden content">
           <i class="plus icon"></i>
@@ -102,18 +106,18 @@
       <form id="SongForm" class="ui form">
         <section class="SongWrap">
           <input id='SongName' placeholder="Song Name"/>
-          <section id="ISRCWrap">
+          <section id="ISRCWrap" class="esconde">
             <input id='SongISRC' placeholder="Song ISRC"/>
             <div id='ISRCResponse'>
               <p id="ISRCvalid" class=""></p>
             </div> 
           </section>
-          <input id='SongWriter' placeholder="Song Writer"/>
+          <input id='SongWriter' placeholder="Song Writer (Optional)"/>
         </div>
       </section>
 
     </form>
-    <div class="ui inverted green animated button" type= tabindex="0" id="SongSubmit">
+    <div class="ui inverted green animated button disabled" type= tabindex="0" id="SongSubmit">
     <div class="visible content">Add Song</div>
     <div class="hidden content">
     <i class="plus icon"></i>
@@ -176,7 +180,7 @@
   </div>
   <div class="actions">
     <div class="ui positive right labeled icon button">
-      Looks good!
+      Submit!
       <i class="checkmark icon"></i>
     </div>
   </div>

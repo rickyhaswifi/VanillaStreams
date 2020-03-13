@@ -4,17 +4,30 @@ NeedCode = () => {
  const Question =  document.getElementById('CodeSelect');
  const CodeResponse = document.getElementById('UPCWrap');
  const SongISRC = document.getElementById('ISRCWrap');
- Question.value === 'false' 
+ Question.value === 'true' 
  ? 
+(CodeResponse.classList = ("esconde"), SongISRC.classList = ("esconde"))
+: 
  (CodeResponse.classList.remove("esconde"), SongISRC.classList.remove("esconde")) 
- : 
- (CodeResponse.classList = ("esconde"), SongISRC.classList = ("esconde"))
 })
 
 GenerateUPC = () => {
   const UPCdigits = Math.floor(Math.random()*90000) + 1000;
   return `978898${UPCdigits}`
 }
+
+// Check if Album form is filled out.
+const AlbumForm = document.getElementById('LabelName');
+AlbumForm.addEventListener('focus', 
+albumValidate = () => {
+
+  const albumClass = document.getElementById('AddAlbumValidate')
+
+  if (LabelName.value < 1) {
+    albumClass.classList.remove("disabled")
+  }
+}
+)
 
 const albumButton = document.getElementById('AddAlbumValidate')
 albumButton.addEventListener('click',
@@ -31,6 +44,7 @@ AddAlbum = () => {
   const Year = parseInt(ReleaseDate.value);
   const UPCLabel = document.getElementById('UPCLabel');
   const StreetDate = document.getElementById('StreetDate');
+
   StreetDate.innerHTML = `Streaming: ${ReleaseDate.value}`;
   AlbumDetails.innerHTML = AlbumName.length < 1 ? 'Add Album Details' : `${AlbumName.value} - ${ArtistName.value}`;
   LabelDisplay.innerHTML = `© ${Year} ${LabelName.value}`;
@@ -53,12 +67,10 @@ AddAlbum = () => {
   <h1 class='sombra'>${AlbumName.value}</h1>
   <h2 class="ui yellow header mbMinus sombra">${ArtistName.value}</h2>
   `
-  // LABEL COPY MODAL
-  // const cLline = document.getElementById('LabelDisplay').innerHTML;
-  // console.log(cLline)
 
   CustomID();
   ClearAlbumInputs();
+  albumButton.classList = 'ui inverted green animated button disabled';
 })
 
 proccessCover = () => {
@@ -106,8 +118,6 @@ ClearAlbumInputs = () => {
   document.getElementById('ReleaseDate').value = '';
   document.getElementById('AlbumUPC').value = '';
   document.getElementById('LabelName').value = '';
-  // document.getElementById("preview").style.display='none';
-  // document.getElementById("previewModalCover").style.display='none';
 }
 
 const resetAlbumButton = document.getElementById('ResetAlbum')
@@ -166,6 +176,19 @@ ExampleSongsButton.addEventListener('click',
  }
 )
 
+// Check if Album form is filled out.
+const SongFormInput = document.getElementById('SongName');
+SongFormInput.addEventListener('focus', 
+SongValidate = () => {
+
+  const SongNameCheck = document.getElementById('SongSubmit')
+
+  if (SongFormInput.value < 1) {
+    SongNameCheck.classList.remove("disabled")
+  }
+}
+)
+
 const SongSubmitButton = document.getElementById('SongSubmit')
 SongSubmitButton.addEventListener('click', 
 AddSong = () => {
@@ -211,6 +234,7 @@ AddSong = () => {
   Songs.push(newSong);
   GetSongs();
   ClearFields();
+  SongSubmitButton.classList = 'ui inverted green animated button disabled'
 })
 
 // const SongForm = document.getElementById('SongForm')
@@ -222,7 +246,7 @@ GetSongs = () => {
   const LabelCopyTableContainer = document.getElementById('LabelCopyTableContainer');
   var i = 1;
 
-  SongList.innerHTML = Songs < 1 ?  'Add songs on form below' : '<ol>' + Songs.map(function (Songs) {
+  SongList.innerHTML = Songs < 1 ?  `<h1 class='pushLeft'>Add songs on form below</h1>` : '<ol>' + Songs.map(function (Songs) {
     return `<li> 
     <h1> ${Songs.Name} </h1> 
     <h2> ISRC:  ${Songs.ISRC} </h2> 
